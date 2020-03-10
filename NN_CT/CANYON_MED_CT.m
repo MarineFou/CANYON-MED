@@ -75,4 +75,4 @@ end
 CT_out=mean(CT_outputs_s,2);
 
 out=CT_out;
-
+ 
