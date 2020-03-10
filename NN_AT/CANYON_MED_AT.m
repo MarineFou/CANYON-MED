@@ -3,16 +3,16 @@ function out=CANYON_MED_AT(gtime,lat,lon,pres,temp,psal,doxy)
 % 
 % Multi-layer perceptron to predict alkalinity / umol kg-1 
 %
-% Neural network training by Marine Fourrier from work by Raphaëlle Sauzède, LOV; 
+% Neural network training by Marine Fourrier from work by RaphaÃ«lle SauzÃ¨de, LOV; 
 % as Matlab function by Marine Fourrier, LOV
 %
 %
 % input:
 % gtime - date (UTC) as matlab time (days since 01-Jan-0000)
-% lat   - latitude / °N  [-90 90]
-% lon   - longitude / °E [-180 180] or [0 360]
+% lat   - latitude / Â°N  [-90 90]
+% lon   - longitude / Â°E [-180 180] or [0 360]
 % pres  - pressure / dbar
-% temp  - in-situ temperature / °C
+% temp  - in-situ temperature / Â°C
 % psal  - salinity
 % doxy  - dissolved oxygen / umol kg-1 (!)
 %
@@ -20,7 +20,7 @@ function out=CANYON_MED_AT(gtime,lat,lon,pres,temp,psal,doxy)
 % out   - alkalinity / umol kg-1
 %
 % check value: 2593.8204 umol kg-1
-% for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
+% for 09-Apr-2014, 35Â° N, 18Â° E, 500 dbar, 13.5 Â°C, 38.6 psu, 160 umol O2 kg-1
 %
 %
 % Marine Fourrier, LOV
@@ -29,12 +29,12 @@ function out=CANYON_MED_AT(gtime,lat,lon,pres,temp,psal,doxy)
 % No input checks! Assumes informed use, e.g., same dimensions for all
 % inputs, ...
 
-basedir='D:\Documents\Thèse\Docs\science\PAPIER_CANYON_MED\CODES\CANYON_MED\'; % relative or absolute path to CANYON training files
+basedir='D:\CANYON-MED\'; % relative or absolute path to CANYON training files
 
 % input preparation
 gvec=datevec(gtime);
 year=gvec(:,1); % get year number
-doy=floor(datenum(gtime)-datenum(gvec(1),1,0))*360/365; % only full yearday used; entire year (365 d) mapped to 360°
+doy=floor(datenum(gtime)-datenum(gvec(1),1,0))*360/365; % only full yearday used; entire year (365 d) mapped to 360Â°
 lon(lon>180)=lon(lon>180)-360;
 % doy sigmoid scaling
 presgrid=dlmread([basedir 'CY_doy_pres_limit.csv'],'\t');
