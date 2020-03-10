@@ -75,4 +75,4 @@ end
 phos_out=mean(phos_outputs_s,2);
 
 out=phos_out;
-
+ 
