@@ -29,7 +29,7 @@ function out=CANYON_MED_AT(gtime,lat,lon,pres,temp,psal,doxy)
 % No input checks! Assumes informed use, e.g., same dimensions for all
 % inputs, ...
 
-basedir='D:\Documents\Thèse\Docs\science\NN_training\_scripts_\NN\'; % relative or absolute path to CANYON training files
+basedir='D:\CANYON-MED\; % relative or absolute path to CANYON training files
 
 % input preparation
 gvec=datevec(gtime);
