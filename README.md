@@ -1,2 +1,2 @@
 # CANYON-MED
-CANYON-MEd codes and training weights
+CANYON-MED codes and training weights
