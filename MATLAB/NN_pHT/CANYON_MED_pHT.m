@@ -1,7 +1,7 @@
 function out=CANYON_MED_pHT(gtime,lat,lon,pres,temp,psal,doxy)
 % function out=CANYON_NO3(gtime,lat,lon,pres,temp,psal,doxy)
 % 
-% Multi-layer perceptron to predict total pH
+% Multi-layer perceptron to predict total pH (total scale at insitu PTS)
 %
 % Neural network training by Marine Fourrier from work by Raphaëlle Sauzède, LOV; 
 % as Matlab function by Marine Fourrier, LOV
@@ -17,9 +17,9 @@ function out=CANYON_MED_pHT(gtime,lat,lon,pres,temp,psal,doxy)
 % doxy  - dissolved oxygen / umol kg-1 (!)
 %
 % output:
-% out   - pHT / umol kg-1 at T=25, P=0
+% out   - pHT (total scale at insitu PTS)
 %
-% check value: 8.0895 umol kg-1
+% check value: 8.0895
 % for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
 %
 %
