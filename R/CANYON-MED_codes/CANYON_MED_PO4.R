@@ -1,38 +1,39 @@
-CANYON_MED_SiOH4<- function(date,lat,lon,pres,temp,psal,doxy) {
-  # Multi-layer perceptron to predict silicate concentration / umol kg-1 
+CANYON_MED_PO4<- function(date,lat,lon,pres,temp,psal,doxy) {
+  # Multi-layer perceptron to predict phosphate concentration / umol kg-1 
   #
-  # Neural network training by Marine Fourrier from work by Rapha?lle Sauz?de, LOV; 
+  # Neural network training by Marine Fourrier from work by Raphaelle Sauzede, LOV; 
   # as R function by Marine Fourrier, LOV
   #
   #
   # input:
-  # gtime - date (UTC) as matlab time (days since 01-Jan-0000)
-  # lat   - latitude / ?N  [-90 90]
-  # lon   - longitude / ?E [-180 180] or [0 360]
+  # gtime - date (UTC) as string ("yyyy-mm-dd HH:MM")
+  # lat   - latitude / °N  [-90 90]
+  # lon   - longitude / °E [-180 180] or [0 360]
   # pres  - pressure / dbar
-  # temp  - in-situ temperature / ?C
-  # psal  - salisily
-  # doxy  - dissolved oxygen / umol kg-1 (!)
+  # temp  - in-situ temperature / °C
+  # psal  - salinity
+  # doxy  - dissolved oxygen / umol kg-1 
   #
   # output:
-  # out   - silicate / umol kg-1
+  # out   - phosphate / umol kg-1
   #
-  # check value:  6.3479 umol kg-1
+  # check value:  0.2859 umol kg-1
   # for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
   #
   #
   # Marine Fourrier, LOV
-  # 05.06.2020
+  # 10.06.2020
   
   # No input checks! Assumes informed use, e.g., same dimensions for all
   # inputs, ...
   require(fields)
   
-  basedir <- "C:/Users/nouno/OneDrive/Documents/GitHub/CANYON-MED/R/" # relative or absolute path to CANYON training files
+  
+  basedir <- "C:/Users/nouno/OneDrive/Documents/GitHub/CANYON-MED/R/" # relative or absolute path to CANYON-MED folder
   
   # input preparation
   date <- as.POSIXct(date)
-  day <- as.numeric(format(date,"%j"))*360/365 # only full yearday used; entire year (365 d) mapped to 360Â°
+  day <- as.numeric(format(date,"%j"))*360/365 # only full yearday used; entire year (365 d) mapped to 360°
   year <- as.numeric(format(date,"%Y"))
   lon[which(lon>180)]=lon[which(lon>180)]-360
   
@@ -58,8 +59,8 @@ CANYON_MED_SiOH4<- function(date,lat,lon,pres,temp,psal,doxy) {
   
   
   
-  Moy <- read.table(paste(basedir,"NN_SiOH4/moy_sil.txt",sep=""))
-  Ecart <- read.table(paste(basedir,"NN_SiOH4/std_sil.txt",sep=""))
+  Moy <- read.table(paste(basedir,"CANYON-MED_weights/moy_phos.txt",sep=""))
+  Ecart <- read.table(paste(basedir,"CANYON-MED_weights/std_phos.txt",sep=""))
   
   ne = 9 # Number of inputs
   
@@ -75,17 +76,17 @@ CANYON_MED_SiOH4<- function(date,lat,lon,pres,temp,psal,doxy) {
   #
   n_list=10
   
-  sil_outputs_s=rep(0,n_list)
+  phos_outputs_s=rep(0,n_list)
   
   rx <-dim(data_N)[1]
   for(i in 1:n_list) {
     
-    b1=read.table(paste(basedir,'NN_SiOH4/weights_biases/poids_sil_b1_',as.character(i),'.txt',sep=""))
-    b2=read.table(paste(basedir,'NN_SiOH4/weights_biases/poids_sil_b2_',as.character(i),'.txt',sep=""))
-    b3=read.table(paste(basedir,'NN_SiOH4/weights_biases/poids_sil_b3_',as.character(i),'.txt',sep=""))
-    IW=read.table(paste(basedir,'NN_SiOH4/weights_biases/poids_sil_IW_',as.character(i),'.txt',sep=""))
-    LW1=read.table(paste(basedir,'NN_SiOH4/weights_biases/poids_sil_LW1_',as.character(i),'.txt',sep=""))
-    LW2=read.table(paste(basedir,'NN_SiOH4/weights_biases/poids_sil_LW2_',as.character(i),'.txt',sep=""))
+    b1=read.table(paste(basedir,'CANYON-MED_weights/poids_phos_b1_',as.character(i),'.txt',sep=""))
+    b2=read.table(paste(basedir,'CANYON-MED_weights/poids_phos_b2_',as.character(i),'.txt',sep=""))
+    b3=read.table(paste(basedir,'CANYON-MED_weights/poids_phos_b3_',as.character(i),'.txt',sep=""))
+    IW=read.table(paste(basedir,'CANYON-MED_weights/poids_phos_IW_',as.character(i),'.txt',sep=""))
+    LW1=read.table(paste(basedir,'CANYON-MED_weights/poids_phos_LW1_',as.character(i),'.txt',sep=""))
+    LW2=read.table(paste(basedir,'CANYON-MED_weights/poids_phos_LW2_',as.character(i),'.txt',sep=""))
     b1 <- as.matrix(b1)
     b2 <- as.matrix(b2)
     b3 <- as.matrix(b3)
@@ -94,13 +95,13 @@ CANYON_MED_SiOH4<- function(date,lat,lon,pres,temp,psal,doxy) {
     a <- 1.715905*tanh((2./3)*(data_N %*% t(IW)+t(b1 %*% t(rep(1,rx)))))
     b <- 1.715905*tanh((2./3)*(a %*% t(LW1)+t(b2 %*% t(rep(1,rx)))))
     y <- b %*% t(LW2)+t(b3 %*% rep(1,rx))
-    sil_outputs=1.5*y*Ecart[1,ne+1]+Moy[1,ne+1]
+    phos_outputs=1.5*y*Ecart[1,ne+1]+Moy[1,ne+1]
     
-    sil_outputs_s[i]=sil_outputs
+    phos_outputs_s[i]=phos_outputs
   }
   
-  sil_out=mean(sil_outputs_s);
+  phos_out=mean(phos_outputs_s);
   
-  out=sil_out;
+  out=phos_out;
   return(out)
 }

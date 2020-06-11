@@ -1,7 +1,7 @@
-function out=CANYON_MED_pHT(gtime,lat,lon,pres,temp,psal,doxy)
+function out=CANYON_MED_NO3(gtime,lat,lon,pres,temp,psal,doxy)
 % function out=CANYON_NO3(gtime,lat,lon,pres,temp,psal,doxy)
 % 
-% Multi-layer perceptron to predict total pH (total scale at insitu PTS)
+% Multi-layer perceptron to predict nitrate concentration / umol kg-1 
 %
 % Neural network training by Marine Fourrier from work by Raphaëlle Sauzède, LOV; 
 % as Matlab function by Marine Fourrier, LOV
@@ -17,19 +17,19 @@ function out=CANYON_MED_pHT(gtime,lat,lon,pres,temp,psal,doxy)
 % doxy  - dissolved oxygen / umol kg-1 (!)
 %
 % output:
-% out   - pHT (total scale at insitu PTS)
+% out   - nitrate / umol kg-1
 %
-% check value: 8.0895
+% check value:  5.8614 umol kg-1
 % for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
 %
 %
 % Marine Fourrier, LOV
-% 17.12.2018
+% 10.06.2020
 
 % No input checks! Assumes informed use, e.g., same dimensions for all
 % inputs, ...
 
-basedir='D:\CANYON-MED\; % relative or absolute path to CANYON training files
+basedir='C:/Users/nouno/OneDrive/Documents/GitHub/CANYON-MED/MATLAB/'; % relative or absolute path to CANYON-MED folder
 
 % input preparation
 gvec=datevec(gtime);
@@ -46,10 +46,8 @@ fsigmoid=1./(1+exp((pres(:)-prespivot)./50));
 data=[lat(:)/90 lon(:) cosd(doy(:)).*fsigmoid(:) sind(doy(:)).*fsigmoid(:) year(:) temp(:) psal(:) doxy(:) pres(:)./2e4+1./((1+exp(-pres(:)./300)).^3)];
 
 
-cd(basedir)
-cd NN_pHT
-Moy=load('moy_ph.txt');
-Ecart=load('std_ph.txt');
+Moy=load(strcat(basedir,'CANYON-MED_weights/moy_nit.txt'));
+Ecart=load(strcat(basedir,'CANYON-MED_weights/std_nit.txt'));
 
 ne=9;  % Number of inputs
 % NORMALISATION OF THE PARAMETERS
@@ -58,21 +56,28 @@ data_norm=(2./3)*(data-(ones(rx,1)*Moy(1:ne)))./(ones(rx,1)*Ecart(1:ne));
 
 %
 n_list=10;
-ph_outputs_s=zeros(size(data_norm,1),n_list);
+nit_outputs_s=zeros(size(data_norm,1),n_list);
+% nit_out_test_s=zeros(size(data_norm,1),n_list);
 for i=1:n_list
-    b1=load(strcat('weights_biases\poids_ph_b1_',string(i),'.txt'));
-    b2=load(strcat('weights_biases\poids_ph_b2_',string(i),'.txt'));
-    b3=load(strcat('weights_biases\poids_ph_b3_',string(i),'.txt'));
-    IW=load(strcat('weights_biases\poids_ph_IW_',string(i),'.txt'));
-    LW1=load(strcat('weights_biases\poids_ph_LW1_',string(i),'.txt'));
-    LW2=load(strcat('weights_biases\poids_ph_LW2_',string(i),'.txt'));
+    b1=load(strcat(basedir,'CANYON-MED_weights/poids_nit_b1_',string(i),'.txt'));
+    b2=load(strcat(basedir,'CANYON-MED_weights/poids_nit_b2_',string(i),'.txt'));
+    b3=load(strcat(basedir,'CANYON-MED_weights/poids_nit_b3_',string(i),'.txt'));
+    IW=load(strcat(basedir,'CANYON-MED_weights/poids_nit_IW_',string(i),'.txt'));
+    LW1=load(strcat(basedir,'CANYON-MED_weights/poids_nit_LW1_',string(i),'.txt'));
+    LW2=load(strcat(basedir,'CANYON-MED_weights/poids_nit_LW2_',string(i),'.txt'));
     
-    ph_outputs=(LW2*custom_MF(LW1*custom_MF(IW*data_norm(:,1:end)'+b1)+b2)+b3)';
-    ph_outputs=1.5*ph_outputs*Ecart(ne+1)+Moy(ne+1);
-    ph_outputs_s(:,i)=ph_outputs;
+    nit_outputs=(LW2*custom_MF(LW1*custom_MF(IW*data_norm(:,1:end)'+b1)+b2)+b3)';
+    nit_outputs=1.5*nit_outputs*Ecart(ne+1)+Moy(ne+1);
+    nit_outputs_s(:,i)=nit_outputs;
+    
+%     nit_out_test=(LW2*(A*((exp(alpha*(LW1*(A*((exp(alpha*(IW*data_norm(:,1:end)'+b1))-1)./(exp(alpha*(IW*data_norm(:,1:end)'+b1))+1)))+b2))-1)./(exp(alpha*(LW1*(A*((exp(alpha*(IW*data_norm(:,1:end)'+b1))-1)./(exp(alpha*(IW*data_norm(:,1:end)'+b1))+1)))+b2))+1)))+b3)';
+%     nit_out_test=1.5*nit_out_test*Ecart(ne+1)+Moy(ne+1);
+%     nit_out_test_s(:,i)=nit_out_test;
+    
+  
 end
 
-ph_out=mean(ph_outputs_s,2);
+nit_out=mean(nit_outputs_s,2);
 
-out=ph_out;
+out=nit_out;
 

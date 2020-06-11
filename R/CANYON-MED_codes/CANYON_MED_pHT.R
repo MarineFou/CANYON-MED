@@ -1,38 +1,39 @@
-CANYON_MED_CT<- function(date,lat,lon,pres,temp,psal,doxy) {
-  # Multi-layer perceptron to predict total carbon / umol kg-1 
+CANYON_MED_pHT<- function(date,lat,lon,pres,temp,psal,doxy) {
+  # Multi-layer perceptron to predict total pH (total scale at insitu PTS)
   #
-  # Neural network training by Marine Fourrier from work by Rapha?lle Sauz?de, LOV; 
+  # Neural network training by Marine Fourrier from work by Raphaelle Sauzede, LOV; 
   # as R function by Marine Fourrier, LOV
   #
   #
   # input:
-  # gtime - date (UTC) as matlab time (days since 01-Jan-0000)
-  # lat   - latitude / ?N  [-90 90]
-  # lon   - longitude / ?E [-180 180] or [0 360]
+  # gtime - date (UTC) as string ("yyyy-mm-dd HH:MM")
+  # lat   - latitude / °N  [-90 90]
+  # lon   - longitude / °E [-180 180] or [0 360]
   # pres  - pressure / dbar
-  # temp  - in-situ temperature / ?C
-  # psal  - saliCTy
-  # doxy  - dissolved oxygen / umol kg-1 (!)
+  # temp  - in-situ temperature / °C
+  # psal  - salinity
+  # doxy  - dissolved oxygen / umol kg-1 
   #
   # output:
-  # out   - total carbon / umol kg-1
+  # out   - pHT (total scale at insitu PTS)
   #
-  # check value:  2314.1663 umol kg-1
+  # check value:  8.0895
   # for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
   #
   #
   # Marine Fourrier, LOV
-  # 05.06.2020
+  # 10.06.2020
   
   # No input checks! Assumes informed use, e.g., same dimensions for all
   # inputs, ...
   require(fields)
   
-  basedir <- "C:/Users/nouno/OneDrive/Documents/GitHub/CANYON-MED/R/" # relative or absolute path to CANYON training files
+  
+  basedir <- "C:/Users/nouno/OneDrive/Documents/GitHub/CANYON-MED/R/" # relative or absolute path to CANYON-MED folder
   
   # input preparation
   date <- as.POSIXct(date)
-  day <- as.numeric(format(date,"%j"))*360/365 # only full yearday used; entire year (365 d) mapped to 360Â°
+  day <- as.numeric(format(date,"%j"))*360/365 # only full yearday used; entire year (365 d) mapped to 360°
   year <- as.numeric(format(date,"%Y"))
   lon[which(lon>180)]=lon[which(lon>180)]-360
   
@@ -58,8 +59,8 @@ CANYON_MED_CT<- function(date,lat,lon,pres,temp,psal,doxy) {
   
   
   
-  Moy <- read.table(paste(basedir,"NN_CT/moy_CT.txt",sep=""))
-  Ecart <- read.table(paste(basedir,"NN_CT/std_CT.txt",sep=""))
+  Moy <- read.table(paste(basedir,"CANYON-MED_weights/moy_ph.txt",sep=""))
+  Ecart <- read.table(paste(basedir,"CANYON-MED_weights/std_ph.txt",sep=""))
   
   ne = 9 # Number of inputs
   
@@ -75,17 +76,17 @@ CANYON_MED_CT<- function(date,lat,lon,pres,temp,psal,doxy) {
   #
   n_list=10
   
-  CT_outputs_s=rep(0,n_list)
+  ph_outputs_s=rep(0,n_list)
   
   rx <-dim(data_N)[1]
   for(i in 1:n_list) {
     
-    b1=read.table(paste(basedir,'NN_CT/weights_biases/poids_CT_b1_',as.character(i),'.txt',sep=""))
-    b2=read.table(paste(basedir,'NN_CT/weights_biases/poids_CT_b2_',as.character(i),'.txt',sep=""))
-    b3=read.table(paste(basedir,'NN_CT/weights_biases/poids_CT_b3_',as.character(i),'.txt',sep=""))
-    IW=read.table(paste(basedir,'NN_CT/weights_biases/poids_CT_IW_',as.character(i),'.txt',sep=""))
-    LW1=read.table(paste(basedir,'NN_CT/weights_biases/poids_CT_LW1_',as.character(i),'.txt',sep=""))
-    LW2=read.table(paste(basedir,'NN_CT/weights_biases/poids_CT_LW2_',as.character(i),'.txt',sep=""))
+    b1=read.table(paste(basedir,'CANYON-MED_weights/poids_ph_b1_',as.character(i),'.txt',sep=""))
+    b2=read.table(paste(basedir,'CANYON-MED_weights/poids_ph_b2_',as.character(i),'.txt',sep=""))
+    b3=read.table(paste(basedir,'CANYON-MED_weights/poids_ph_b3_',as.character(i),'.txt',sep=""))
+    IW=read.table(paste(basedir,'CANYON-MED_weights/poids_ph_IW_',as.character(i),'.txt',sep=""))
+    LW1=read.table(paste(basedir,'CANYON-MED_weights/poids_ph_LW1_',as.character(i),'.txt',sep=""))
+    LW2=read.table(paste(basedir,'CANYON-MED_weights/poids_ph_LW2_',as.character(i),'.txt',sep=""))
     b1 <- as.matrix(b1)
     b2 <- as.matrix(b2)
     b3 <- as.matrix(b3)
@@ -94,13 +95,13 @@ CANYON_MED_CT<- function(date,lat,lon,pres,temp,psal,doxy) {
     a <- 1.715905*tanh((2./3)*(data_N %*% t(IW)+t(b1 %*% t(rep(1,rx)))))
     b <- 1.715905*tanh((2./3)*(a %*% t(LW1)+t(b2 %*% t(rep(1,rx)))))
     y <- b %*% t(LW2)+t(b3 %*% rep(1,rx))
-    CT_outputs=1.5*y*Ecart[1,ne+1]+Moy[1,ne+1]
+    ph_outputs=1.5*y*Ecart[1,ne+1]+Moy[1,ne+1]
     
-    CT_outputs_s[i]=CT_outputs
+    ph_outputs_s[i]=ph_outputs
   }
   
-  CT_out=mean(CT_outputs_s);
+  ph_out=mean(ph_outputs_s);
   
-  out=CT_out;
+  out=ph_out;
   return(out)
 }
