@@ -12,7 +12,7 @@ Matlab and R routines to estimate open ocean carbonate system variables and nuti
 
 The folders for Matlab and R each contain the CANYON-MED codes and training weights.
 
-To use the CANYON-MED neural networks, download the corresponding folder ('CNAYON-MED/v1_paper').
+To use the CANYON-MED neural networks, download the corresponding folder ('CANYON-MED/v1_paper/').
 In the "CANYON-MED codes" folder, change the "basedir" in all 6 CANYON-MED functions to the appropriate folder on your computer. This folder is the location of the CANYON-MED folder.
 It has to end in "R" or "MATLAB".
 
