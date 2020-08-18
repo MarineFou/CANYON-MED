@@ -27,9 +27,10 @@ CANYON_MED_NO3<- function(date,lat,lon,pres,temp,psal,doxy) {
   # No input checks! Assumes informed use, e.g., same dimensions for all
   # inputs, ...
   require(fields)
+  require(matrixStats)
   
   
-  basedir <- "C:/Users/nouno/OneDrive/Documents/GitHub/CANYON-MED/R/" # relative or absolute path to CANYON-MED folder
+  basedir <- "D:/Documents/Thèse/Docs/science/PAPIER_CANYON_MED/CODES/CANYON-MED/v1_paper/R/" # relative or absolute path to CANYON-MED folder
   
   # input preparation
   date <- as.POSIXct(date)
@@ -76,7 +77,7 @@ CANYON_MED_NO3<- function(date,lat,lon,pres,temp,psal,doxy) {
   #
   n_list=10
   
-  nit_outputs_s=rep(0,n_list)
+  nit_outputs_s=data.frame(matrix(NA, nrow = nrow(data), ncol = 10))
   
   rx <-dim(data_N)[1]
   for(i in 1:n_list) {
@@ -100,8 +101,8 @@ CANYON_MED_NO3<- function(date,lat,lon,pres,temp,psal,doxy) {
     nit_outputs_s[i]=nit_outputs
   }
   
-  nit_out=mean(nit_outputs_s);
+  nit_out<-rowMeans(nit_outputs_s,na.rm = TRUE)
   
-  out=nit_out;
+  out=nit_out
   return(out)
 }

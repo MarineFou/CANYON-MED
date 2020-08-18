@@ -20,7 +20,7 @@ function out=CANYON_MED_NO3(gtime,lat,lon,pres,temp,psal,doxy)
 % out   - nitrate / umol kg-1
 %
 % check value:  5.8614 umol kg-1
-% for 09-Apr-2014, 35Â° N, 18Â° E, 500 dbar, 13.5 Â°C, 38.6 psu, 160 umol O2 kg-1
+% for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
 %
 %
 % Marine Fourrier, LOV
@@ -29,12 +29,12 @@ function out=CANYON_MED_NO3(gtime,lat,lon,pres,temp,psal,doxy)
 % No input checks! Assumes informed use, e.g., same dimensions for all
 % inputs, ...
 
-basedir='C:/Users/nouno/OneDrive/Documents/GitHub/CANYON-MED/MATLAB/'; % relative or absolute path to CANYON-MED folder
+basedir='D:\Documents\Thèse\Docs\science\PAPIER_CANYON_MED\CODES\CANYON-MED\v1_paper\MATLAB\'; % relative or absolute path to CANYON-MED folder
 
 % input preparation
 gvec=datevec(gtime);
 year=gvec(:,1); % get year number
-doy=floor(datenum(gtime)-datenum(gvec(1),1,0))*360/365; % only full yearday used; entire year (365 d) mapped to 360Â°
+doy=floor(datenum(gtime)-datenum(gvec(:,1),1,0))*360/365; % only full yearday used; entire year (365 d) mapped to 360Â°
 lon(lon>180)=lon(lon>180)-360;
 % doy sigmoid scaling
 presgrid=dlmread([basedir 'CY_doy_pres_limit.csv'],'\t');
@@ -68,12 +68,7 @@ for i=1:n_list
     
     nit_outputs=(LW2*custom_MF(LW1*custom_MF(IW*data_norm(:,1:end)'+b1)+b2)+b3)';
     nit_outputs=1.5*nit_outputs*Ecart(ne+1)+Moy(ne+1);
-    nit_outputs_s(:,i)=nit_outputs;
-    
-%     nit_out_test=(LW2*(A*((exp(alpha*(LW1*(A*((exp(alpha*(IW*data_norm(:,1:end)'+b1))-1)./(exp(alpha*(IW*data_norm(:,1:end)'+b1))+1)))+b2))-1)./(exp(alpha*(LW1*(A*((exp(alpha*(IW*data_norm(:,1:end)'+b1))-1)./(exp(alpha*(IW*data_norm(:,1:end)'+b1))+1)))+b2))+1)))+b3)';
-%     nit_out_test=1.5*nit_out_test*Ecart(ne+1)+Moy(ne+1);
-%     nit_out_test_s(:,i)=nit_out_test;
-    
+    nit_outputs_s(:,i)=nit_outputs;   
   
 end
 
