@@ -22,7 +22,7 @@ CANYON_MED_SiOH4<- function(date,lat,lon,pres,temp,psal,doxy) {
   #
   #
   # Marine Fourrier, LOV
-  # 10.06.2020
+  # 17.08.2020
   
   # No input checks! Assumes informed use, e.g., same dimensions for all
   # inputs, ...
