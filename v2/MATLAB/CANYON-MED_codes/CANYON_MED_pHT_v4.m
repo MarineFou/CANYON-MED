@@ -39,8 +39,8 @@ lon(lon>180)=lon(lon>180)-360;
 data=[lat(:) lon(:) dec_year(:) temp(:) psal(:) doxy(:) pres(:)./2e4+1./((1+exp(-pres(:)./300)).^3)];
 
 
-moy_F=load(strcat(basedir,'NN_pHT/weights_biases/moy_ph_F.txt')); 
-std_F=load(strcat(basedir,'NN_pHT/weights_biases/std_ph_F.txt')); 
+moy_F=load(strcat(basedir,'CANYON-MED_weights/moy_ph_F.txt')); 
+std_F=load(strcat(basedir,'CANYON-MED_weights/std_ph_F.txt')); 
 
 ne=7;  % Number of inputs
 % NORMALISATION OF THE PARAMETERS
@@ -52,12 +52,12 @@ n_list=5;
 ph_outputs_s=zeros(size(data_norm,1),n_list);
 % ph_out_test_s=zeros(size(data_norm,1),n_list);
 for i=1:n_list
-    b1=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_b1_F_',string(i),'.txt'));
-    b2=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_b2_F_',string(i),'.txt'));
-    b3=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_b3_F_',string(i),'.txt'));
-    IW=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_IW_F_',string(i),'.txt'));
-    LW1=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_LW1_F_',string(i),'.txt'));
-    LW2=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_LW2_F_',string(i),'.txt'));
+    b1=load(strcat(basedir,'CANYON-MED_weights/poids_ph_b1_F_',string(i),'.txt'));
+    b2=load(strcat(basedir,'CANYON-MED_weights/poids_ph_b2_F_',string(i),'.txt'));
+    b3=load(strcat(basedir,'CANYON-MED_weights/poids_ph_b3_F_',string(i),'.txt'));
+    IW=load(strcat(basedir,'CANYON-MED_weights/poids_ph_IW_F_',string(i),'.txt'));
+    LW1=load(strcat(basedir,'CANYON-MED_weights/poids_ph_LW1_F_',string(i),'.txt'));
+    LW2=load(strcat(basedir,'CANYON-MED_weights/poids_ph_LW2_F_',string(i),'.txt'));
     
     ph_outputs=(LW2*custom_MF(LW1*custom_MF(IW*data_norm(:,1:end)'+b1)+b2)+b3)';
     ph_outputs=1.5*ph_outputs*std_F(ne+1)+moy_F(ne+1);
@@ -66,8 +66,8 @@ for i=1:n_list
 end
 clear b1 b2 b3 IW LWI LW2
 
-moy_G=load(strcat(basedir,'NN_pHT/weights_biases/moy_ph_G.txt')); 
-std_G=load(strcat(basedir,'NN_pHT/weights_biases/std_ph_G.txt')); 
+moy_G=load(strcat(basedir,'CANYON-MED_weights/moy_ph_G.txt')); 
+std_G=load(strcat(basedir,'CANYON-MED_weights/std_ph_G.txt')); 
 
 ne=7;  % Number of inputs
 % NORMALISATION OF THE PARAMETERS
@@ -76,12 +76,12 @@ data_norm=(2./3)*(data-(ones(rx,1)*moy_G(1:ne)))./(ones(rx,1)*std_G(1:ne));
 
 
 for i=1:n_list
-    b1=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_b1_G_',string(i),'.txt'));
-    b2=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_b2_G_',string(i),'.txt'));
-    b3=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_b3_G_',string(i),'.txt'));
-    IW=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_IW_G_',string(i),'.txt'));
-    LW1=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_LW1_G_',string(i),'.txt'));
-    LW2=load(strcat(basedir,'NN_pHT\weights_biases\poids_ph_LW2_G_',string(i),'.txt'));
+    b1=load(strcat(basedir,'CANYON-MED_weights/poids_ph_b1_G_',string(i),'.txt'));
+    b2=load(strcat(basedir,'CANYON-MED_weights/poids_ph_b2_G_',string(i),'.txt'));
+    b3=load(strcat(basedir,'CANYON-MED_weights/poids_ph_b3_G_',string(i),'.txt'));
+    IW=load(strcat(basedir,'CANYON-MED_weights/poids_ph_IW_G_',string(i),'.txt'));
+    LW1=load(strcat(basedir,'CANYON-MED_weights/poids_ph_LW1_G_',string(i),'.txt'));
+    LW2=load(strcat(basedir,'CANYON-MED_weights/poids_ph_LW2_G_',string(i),'.txt'));
     
     ph_outputs=(LW2*custom_MF(LW1*custom_MF(IW*data_norm(:,1:end)'+b1)+b2)+b3)';
     ph_outputs=1.5*ph_outputs*std_G(ne+1)+moy_G(ne+1);

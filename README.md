@@ -22,4 +22,8 @@ Do not change the architecture inside the folder or rename any of the files.
 
 ------
 
-The folder v2 contains a version still under development. This version is not stable and does not correspond to the version in the paper mentionned above.
+The folder v2 contains a second version. The installation process is the same as for v1_paper.
+
+
+The inputs have been modified (the day of year and year are now considered as a unique input : the decimal year). A retraining has been done on 2 separate subsets to diversify the learning process.
+A sigmoid transfomraiton of the day of year is no longer used.
