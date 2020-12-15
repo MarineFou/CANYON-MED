@@ -5,6 +5,7 @@ Fourrier, M., Coppola, L., Claustre, H., D’Ortenzio, F., Sauzède, R., and Gat
 
 
 When using the method, please cite the paper.
+For any questions, please contact me at : marine.fourrier@protonmail.com
 
 ------
 
@@ -26,4 +27,4 @@ The folder v2 contains a second version. The installation process is the same as
 
 
 The inputs have been modified (the day of year and year are now considered as a unique input : the decimal year). A retraining has been done on 2 separate subsets to diversify the learning process.
-A sigmoid transfomraiton of the day of year is no longer used.
+The sigmoid transformation of the day of year is no longer used, thus removing a problem with seasonnality at depth.
