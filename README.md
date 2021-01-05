@@ -9,7 +9,7 @@ For any questions, please contact me at : marine.fourrier@protonmail.com
 
 ------
 
-Matlab and R routines to estimate open ocean carbonate system variables and nutirents in the Mediterranean Sea from time, geolocation, together with T, S and O2.
+Matlab and R routines to estimate open ocean carbonate system variables and nutrients in the Mediterranean Sea from time, geolocation, together with T, S and O2.
 
 The folders for Matlab and R each contain the CANYON-MED codes and training weights.
 
