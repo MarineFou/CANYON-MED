@@ -29,4 +29,4 @@ The folder v2 contains a second version. The installation process is the same as
 The inputs have been modified (the day of year and year are now considered as a unique input : the decimal year). A retraining has been done on 2 separate subsets to diversify the learning process.
 The sigmoid transformation of the day of year is no longer used, thus removing a problem with seasonnality at depth.
 
-A correction of the paper is under way. WeWE RECOMMEND USERS USE v2.
+A correction of the paper is under way. WE RECOMMEND USERS USE v2.
