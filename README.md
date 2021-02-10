@@ -3,8 +3,9 @@ Matlab and R implementations of the CANYON-MED method published in:
 
 Fourrier, M., Coppola, L., Claustre, H., D’Ortenzio, F., Sauzède, R., and Gattuso, J.-P. (2020). A Regional Neural Network Approach to Estimate Water-Column Nutrient Concentrations and Carbonate System Variables in the Mediterranean Sea: CANYON-MED. Frontiers in Marine Science 7. doi:10.3389/fmars.2020.00620.
 
+Fourrier M, Coppola L, Claustre H,D’Ortenzio F, Sauzède R andGattuso J-P (2021) Corrigendum: A Regional Neural Network Approach to Estimate Water-Column Nutrient Concentrations and Carbonate System Variables in the Mediterranean Sea: CANYON-MED. Frontiers in Marine Science 8. doi:10.3389/fmars.2021.650509.
 
-When using the method, please cite the paper.
+When using the method, please cite the papers.
 For any questions, please contact me at : marine.fourrier@protonmail.com
 
 ------
@@ -13,7 +14,7 @@ Matlab and R routines to estimate open ocean carbonate system variables and nutr
 
 The folders for Matlab and R each contain the CANYON-MED codes and training weights.
 
-To use the CANYON-MED neural networks, download the corresponding folder ('CANYON-MED/v1_paper/').
+To use the CANYON-MED neural networks, download the corresponding folder ('CANYON-MED/v2/').
 In the "CANYON-MED codes" folder, change the "basedir" in all 6 CANYON-MED functions to the appropriate folder on your computer. This folder is the location of the CANYON-MED folder.
 It has to end in "R" or "MATLAB".
 
@@ -23,10 +24,12 @@ Do not change the architecture inside the folder or rename any of the files.
 
 ------
 
-The folder v2 contains a second version. The installation process is the same as for v1_paper.
-
-
+Modifications mentionned in the corrigendum :
 The inputs have been modified (the day of year and year are now considered as a unique input : the decimal year). A retraining has been done on 2 separate subsets to diversify the learning process.
 The sigmoid transformation of the day of year is no longer used, thus removing a problem with seasonnality at depth.
 
-A correction of the paper is under way. WE RECOMMEND USERS USE v2.
+------
+
+The folder v1_paper contains the original version from the paper.
+As some errors have been modified we recommend users do not use this version.
+
