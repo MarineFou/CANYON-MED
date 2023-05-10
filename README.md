@@ -30,7 +30,7 @@ Modifications mentionned in the corrigendum :
 The inputs have been modified (the day of year and year are now considered as a unique input : the decimal year). A retraining has been done on 2 separate subsets to diversify the learning process.
 The sigmoid transformation of the day of year is no longer used, thus removing a problem with seasonnality at depth.
 
-For users who don't have the Aerospace Toolbox, the decimal year and leap year functions are not available. These have been replaced by a few lines of code that provide the same functionality. Simply comment line 35 and uncomment lines 39-51 in all 6 CANYON-MED functions.
+**For users who don't have the Aerospace Toolbox, the decimal year and leap year functions are not available. These have been replaced by a few lines of code that provide the same functionality. Simply comment line 35 and uncomment lines 39-51 in all 6 CANYON-MED functions.**
 ------
 
 The folder v1_paper contains the original version from the paper.
