@@ -20,12 +20,11 @@ function out=CANYON_MED_PO4_v4(gtime,lat,lon,pres,temp,psal,doxy)
 % out   - phosphate / umol kg-1
 %
 % check value: 0.3029 umol kg-1
-% for 09-Apr-2014, 35Â° N, 18Â° E, 500 dbar, 13.5 Â°C, 38.6 psu, 160 umol O2 kg-1
+% for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
 %
 %
 % Marine Fourrier, LOV
 % 25.08.2020
-
 
 % No input checks! Assumes informed use, e.g., same dimensions for all
 % inputs, ...
@@ -34,6 +33,24 @@ basedir='D:\Documents\Thèse\Docs\science\PAPIER_CANYON_MED\CODES\CANYON-MED\v2\M
 
 % input preparation
 dec_year=decyear(gtime);
+
+% if you don't have the aerospace toolbox, un comment lines 39-51 and
+% comment line 35
+% Get date components from datetime array
+% if isa(gtime,"datetime")
+% else
+%     gtime= datetime( datenum(gtime), 'convertFrom', 'datenum' );
+% end
+% yearIn = year(gtime);
+% ndays = 365*ones(size(yearIn));
+% year_in = floor(yearIn);
+% ly = ((mod(year_in,4) == 0 & mod(year_in,100) ~= 0) | mod(year_in,400) == 0);
+% ndays(ly) = 366;
+% firstDayofYear = datetime(yearIn, ones(size(yearIn)), ones(size(yearIn)));
+% dayofyear = gtime - firstDayofYear;
+% % Calculate the decimal year
+% dec_year = yearIn + dayofyear./hours(ndays*24);
+
 lon(lon>180)=lon(lon>180)-360;
 % input sequence
 %     lat,   lon,    dec_year,    temp,   sal,    oxygen, P 

@@ -33,6 +33,24 @@ basedir='D:\Documents\Thèse\Docs\science\PAPIER_CANYON_MED\CODES\CANYON-MED\v2\M
 
 % input preparation
 dec_year=decyear(gtime);
+
+% if you don't have the aerospace toolbox, un comment lines 39-51 and
+% comment line 35
+% Get date components from datetime array
+% if isa(gtime,"datetime")
+% else
+%     gtime= datetime( datenum(gtime), 'convertFrom', 'datenum' );
+% end
+% yearIn = year(gtime);
+% ndays = 365*ones(size(yearIn));
+% year_in = floor(yearIn);
+% ly = ((mod(year_in,4) == 0 & mod(year_in,100) ~= 0) | mod(year_in,400) == 0);
+% ndays(ly) = 366;
+% firstDayofYear = datetime(yearIn, ones(size(yearIn)), ones(size(yearIn)));
+% dayofyear = gtime - firstDayofYear;
+% % Calculate the decimal year
+% dec_year = yearIn + dayofyear./hours(ndays*24);
+
 lon(lon>180)=lon(lon>180)-360;
 % input sequence
 %     lat,   lon,    dec_year,    temp,   sal,    oxygen, P 
