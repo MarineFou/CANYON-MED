@@ -31,20 +31,28 @@ def CANYON_MED_PO4_v4(date, lat, lon, pres, temp, psal, doxy):
     # No input checks! Assumes informed use, e.g., same dimensions for all
     # inputs, ...
   
-    basedir = "D:/Documents/Thèse/Docs/science/PAPIER_CANYON_MED/CODES/CANYON-MED/v2/PYTHON/"  # relative or absolute path to CANYON-MED folder
-
+    basedir = "D:/PYTHON/"  # relative or absolute path to CANYON-MED folder
+    
+    # test format
+    
+    # if type(variable) == list :
+        # variable_new = pd.Series(variable_list)
+    # else :
+        # variable_new = [variable]
+    
     # input preparation
     date = pd.to_datetime(date)
-    dec_year = date.year + (date - pd.Timestamp(f"{date.year}-01-01 00:00")).days / 365
+    # dec_year = date.year + (date - pd.Timestamp(f"{date.year}-01-01 00:00")).days / 365
+    dec_year = 2014.268
     lon[lon > 180] = lon[lon > 180] - 360
 
     # input sequence:
     #     lat,   lon,    dec_year,    temp,   sal,    oxygen, P
 
-    data = pd.DataFrame({"lat": lat, "lon": lon, "dec_year": dec_year, "temp": temp, "psal": psal, "doxy": doxy, "pres": pres / 2e4 + 1 / ((1 + np.exp(-pres / 300)) ** 3)})
+    data = pd.DataFrame({"lat": [lat], "lon": [lon], "dec_year": [dec_year], "temp": [temp], "psal": [psal], "doxy": [doxy], "pres": [pres / 2e4 + 1 / ((1 + np.exp(-pres / 300)) ** 3)]})
 
-    moy_F = pd.read_table(basedir + "CANYON-MED_weights/moy_phos_F.txt", sep="")
-    std_F = pd.read_table(basedir + "CANYON-MED_weights/std_phos_F.txt", sep="")
+    moy_F = pd.read_table(basedir + "CANYON-MED_weights/moy_phos_F.txt", sep=" {3}", header=None)
+    std_F = pd.read_table(basedir + "CANYON-MED_weights/std_phos_F.txt", sep=" {3}", header=None)
 
     ne = 7  # Number of inputs
 
@@ -56,18 +64,18 @@ def CANYON_MED_PO4_v4(date, lat, lon, pres, temp, psal, doxy):
 
     data_N = np.array(data_N)
 
-    n_list = 5
+    n_list = 6
 
     phos_outputs_s = pd.DataFrame(np.full((data.shape[0], 10), np.nan))
 
     rx = data_N.shape[0]
-    for i in range(n_list):
-        b1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b1_F_{i}.txt", sep="")
-        b2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b2_F_{i}.txt", sep="")
-        b3 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b3_F_{i}.txt", sep="")
-        IW = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_IW_F_{i}.txt", sep="")
-        LW1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW1_F_{i}.txt", sep="")
-        LW2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW2_F_{i}.txt", sep="")
+    for i in range(1,n_list):
+        b1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b1_F_{i}.txt", sep=" {3}", header=None)
+        b2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b2_F_{i}.txt", sep=" {3}", header=None)
+        b3 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b3_F_{i}.txt", sep=" {3}", header=None)
+        IW = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_IW_F_{i}.txt", sep=" {3}", header=None)
+        LW1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW1_F_{i}.txt", sep=" {3}", header=None)
+        LW2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW2_F_{i}.txt", sep=" {3}", header=None)
         b1 = np.array(b1)
         b2 = np.array(b2)
         b3 = np.array(b3)
@@ -80,8 +88,8 @@ def CANYON_MED_PO4_v4(date, lat, lon, pres, temp, psal, doxy):
 
         phos_outputs_s[i] = phos_outputs
 
-    moy_G = pd.read_table(basedir + "CANYON-MED_weights/moy_phos_G.txt", sep="")
-    std_G = pd.read_table(basedir + "CANYON-MED_weights/std_phos_G.txt", sep="")
+    moy_G = pd.read_table(basedir + "CANYON-MED_weights/moy_phos_G.txt", sep=" {3}", header=None)
+    std_G = pd.read_table(basedir + "CANYON-MED_weights/std_phos_G.txt", sep=" {3}", header=None)
 
     ne = 7  # Number of inputs
 
@@ -95,12 +103,12 @@ def CANYON_MED_PO4_v4(date, lat, lon, pres, temp, psal, doxy):
 
     rx = data_N.shape[0]
     for i in range(n_list):
-        b1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b1_G_{i}.txt", sep="")
-        b2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b2_G_{i}.txt", sep="")
-        b3 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b3_G_{i}.txt", sep="")
-        IW = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_IW_G_{i}.txt", sep="")
-        LW1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW1_G_{i}.txt", sep="")
-        LW2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW2_G_{i}.txt", sep="")
+        b1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b1_G_{i}.txt", sep=" {3}", header=None)
+        b2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b2_G_{i}.txt", sep=" {3}", header=None)
+        b3 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_b3_G_{i}.txt", sep=" {3}", header=None)
+        IW = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_IW_G_{i}.txt", sep=" {3}", header=None)
+        LW1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW1_G_{i}.txt", sep=" {3}", header=None)
+        LW2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW2_G_{i}.txt", sep=" {3}", header=None)
         b1 = np.array(b1)
         b2 = np.array(b2)
         b3 = np.array(b3)
@@ -126,3 +134,119 @@ def CANYON_MED_PO4_v4(date, lat, lon, pres, temp, psal, doxy):
 
     out = phos_out
     return out
+
+
+#%% Version test 
+doxy = pd.Series([160])
+psal = pd.Series([38.6])
+temp = pd.Series([13.5])
+pres = pd.Series([500])
+lon = pd.Series([18])
+lat = pd.Series([35])
+date = pd.Series(['09/04/2014'])
+
+
+
+basedir = "D:/PYTHON/"  # relative or absolute path to CANYON-MED folder
+
+# test format
+
+# if type(variable) == list :
+    # variable_new = pd.Series(variable_list)
+# else :
+    # variable_new = [variable]
+
+# input preparation
+date = pd.to_datetime(date)
+# dec_year = date.year + (date - pd.Timestamp(f"{date.year}-01-01 00:00")).days / 365
+dec_year = 2014.268
+lon[lon > 180] = lon[lon > 180] - 360
+
+# input sequence:
+#     lat,   lon,    dec_year,    temp,   sal,    oxygen, P
+
+data = pd.DataFrame({"lat": lat, "lon": lon, "dec_year": dec_year, "temp": temp, "psal": psal, "doxy": doxy, "pres": pres / 2e4 + 1 / ((1 + np.exp(-pres / 300)) ** 3)})
+
+moy_F = pd.read_csv(basedir + "CANYON-MED_weights/moy_phos_F.txt", sep=" {3}", header=None)
+std_F = pd.read_csv(basedir + "CANYON-MED_weights/std_phos_F.txt", sep=" {3}", header=None)
+
+ne = 7  # Number of inputs
+
+# NORMALISATION OF THE PARAMETERS
+data_N = data.iloc[:, :ne].copy()
+
+for i in range(ne):
+    data_N.iloc[:, i] = (2 / 3) * ((data.iloc[:, i] - moy_F.iloc[:, i]) / std_F.iloc[:, i])
+
+data_N = np.array(data_N)
+
+n_list = 6
+
+phos_outputs_s = pd.DataFrame(np.full((data.shape[0], 10), np.nan))
+
+rx = data_N.shape[0]
+for i in range(1,n_list):
+    b1 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_b1_F_{i}.txt", sep=" {3}", header=None)
+    b2 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_b2_F_{i}.txt", sep=" {3}", header=None)
+    b3 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_b3_F_{i}.txt", sep=" {3}", header=None)
+    IW = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_IW_F_{i}.txt", sep="\s{3,}", header=None)
+    LW1 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW1_F_{i}.txt", sep=" {3}", header=None)
+    LW2 = pd.read_table(basedir + f"CANYON-MED_weights/poids_phos_LW2_F_{i}.txt", sep=" {3}", header=None)
+    b1 = np.array(b1)
+    b2 = np.array(b2)
+    b3 = np.array(b3)
+
+    # hidden layers
+    a = 1.715905 * np.tanh((2. / 3) * (data_N @ IW.T + b1 @ np.ones((rx, 1)).T))
+    b = 1.715905 * np.tanh((2. / 3) * (a @ LW1.T + b2 @ np.ones((rx, 1)).T))
+    y = b @ LW2.T + b3 @ np.ones((rx, 1)).T
+    phos_outputs = 1.5 * y * std_F.iloc[0, ne + 1] + moy_F.iloc[0, ne + 1]
+
+    phos_outputs_s[i] = phos_outputs
+
+moy_G = pd.read_csv(basedir + "CANYON-MED_weights/moy_phos_G.txt", sep=" {3}", header=None)
+std_G = pd.read_csv(basedir + "CANYON-MED_weights/std_phos_G.txt", sep=" {3}", header=None)
+
+ne = 7  # Number of inputs
+
+# NORMALISATION OF THE PARAMETERS
+data_N = data.iloc[:, :ne].copy()
+
+for i in range(ne):
+    data_N.iloc[:, i] = (2 / 3) * ((data.iloc[:, i] - moy_G.iloc[:, i]) / std_G.iloc[:, i])
+
+data_N = np.array(data_N)
+
+rx = data_N.shape[0]
+for i in range(n_list):
+    b1 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_b1_G_{i}.txt", sep=" {3}", header=None)
+    b2 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_b2_G_{i}.txt", sep=" {3}", header=None)
+    b3 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_b3_G_{i}.txt", sep=" {3}", header=None)
+    IW = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_IW_G_{i}.txt", sep=" {3}", header=None)
+    LW1 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_LW1_G_{i}.txt", sep=" {3}", header=None)
+    LW2 = pd.read_csv(basedir + f"CANYON-MED_weights/poids_phos_LW2_G_{i}.txt", sep=" {3}", header=None)
+    b1 = np.array(b1)
+    b2 = np.array(b2)
+    b3 = np.array(b3)
+
+    # hidden layers
+    a = 1.715905 * np.tanh((2. / 3) * (data_N @ IW.T + b1 @ np.ones((rx, 1)).T))
+    b = 1.715905 * np.tanh((2. / 3) * (a @ LW1.T + b2 @ np.ones((rx, 1)).T))
+    y = b @ LW2.T + b3 @ np.ones((rx, 1)).T
+    phos_outputs = 1.5 * y * std_G.iloc[0, ne + 1] + moy_G.iloc[0, ne + 1]
+
+    phos_outputs_s[i + 5] = phos_outputs
+
+mean_nn = np.mean(phos_outputs_s, axis=0)
+std_nn = np.std(phos_outputs_s, axis=0)
+
+lim_inf = mean_nn - std_nn
+lim_sup = mean_nn + std_nn
+
+phos_t = phos_outputs_s.copy()
+phos_t[(phos_t < lim_inf) | (phos_t > lim_sup)] = np.nan
+
+phos_out = np.nanmean(phos_t, axis=0)
+
+out = phos_out
+
