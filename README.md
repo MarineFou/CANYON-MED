@@ -9,6 +9,8 @@ When using the method, please **cite the papers**.
 For any questions, please contact me at : *marine.fourrier@protonmail.com*
 
 ------
+THE PYTHON CODE IS STILL IN DEVELOPMENT AND NOT YET FUNCTIONAL!
+------
 
 Matlab and R routines to estimate open ocean carbonate system variables and nutrients in the Mediterranean Sea from time, geolocation, together with T, S and O2.
 
