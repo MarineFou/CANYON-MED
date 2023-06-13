@@ -21,7 +21,8 @@ function out=CANYON_MED_pHT_v4(gtime,lat,lon,pres,temp,psal,doxy)
 %
 % check value: 8.0965
 % for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
-%
+% for example run
+% CANYON_MED_pHT_v4(datenum(2014,04,09),35,18,500,13.5,38.6,160)
 %
 % Marine Fourrier, LOV
 % 25.08.2020

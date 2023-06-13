@@ -21,7 +21,8 @@ function out=CANYON_MED_PO4_v4(gtime,lat,lon,pres,temp,psal,doxy)
 %
 % check value: 0.3029 umol kg-1
 % for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
-%
+% for example run
+% CANYON_MED_PO4_v4(datenum(2014,04,09),35,18,500,13.5,38.6,160)
 %
 % Marine Fourrier, LOV
 % 25.08.2020
@@ -116,4 +117,3 @@ for i=1:size(phos_outputs_s,1)
 end
 
 out=phos_out;
-

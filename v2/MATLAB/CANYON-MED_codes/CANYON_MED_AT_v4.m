@@ -1,7 +1,7 @@
 function out=CANYON_MED_AT_v4(gtime,lat,lon,pres,temp,psal,doxy)
 % function out=CANYON_AT(gtime,lat,lon,pres,temp,psal,doxy)
 % 
-% Multi-layer perceptron to predict alkalinity / umol kg-1  
+% Multi-layer perceptron to predict total alkalinity / umol kg-1  
 %
 % Neural network training by Marine Fourrier from work by Raphaëlle Sauzède, LOV; 
 % as Matlab function by Marine Fourrier, LOV
@@ -21,7 +21,8 @@ function out=CANYON_MED_AT_v4(gtime,lat,lon,pres,temp,psal,doxy)
 %
 % check value: 2599.3535 umol kg-1
 % for 09-Apr-2014, 35° N, 18° E, 500 dbar, 13.5 °C, 38.6 psu, 160 umol O2 kg-1
-%
+% for example run
+% CANYON_MED_AT_v4(datenum(2014,04,09),35,18,500,13.5,38.6,160)
 %
 % Marine Fourrier, LOV
 % 25.08.2020

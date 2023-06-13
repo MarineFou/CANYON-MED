@@ -1,24 +1,25 @@
 # CANYON-MED
-Matlab and R implementations of the CANYON-MED method published in:
+**Matlab and R** implementations of the CANYON-MED method published in:
 
 Fourrier, M., Coppola, L., Claustre, H., D’Ortenzio, F., Sauzède, R., and Gattuso, J.-P. (2020). A Regional Neural Network Approach to Estimate Water-Column Nutrient Concentrations and Carbonate System Variables in the Mediterranean Sea: CANYON-MED. Frontiers in Marine Science 7. doi:10.3389/fmars.2020.00620.
 
 Fourrier, M., Coppola, L., Claustre, H., D’Ortenzio, F., Sauzède, R., and Gattuso, J.-P. (2021). Corrigendum: A Regional Neural Network Approach to Estimate Water-Column Nutrient Concentrations and Carbonate System Variables in the Mediterranean Sea: CANYON-MED. Frontiers in Marine Science 8. doi:10.3389/fmars.2021.650509.
 
+**Python** code has developped after publication. Please refer to the papers mentionned above and the github repository if using the python code.
 When using the method, please **cite the papers**.
 For any questions, please contact me at : *marine.fourrier@protonmail.com*
 
 ------
-THE PYTHON CODE IS STILL IN DEVELOPMENT AND NOT YET FUNCTIONAL!
+UPDATE: THE PYTHON CODE IS NOW FUNCTIONAL!
 ------
 
-Matlab and R routines to estimate open ocean carbonate system variables and nutrients in the Mediterranean Sea from time, geolocation, together with T, S and O2.
+Matlab, R and Python routines to estimate open ocean carbonate system variables and nutrients in the Mediterranean Sea from time, geolocation, together with T, S and O2.
 
-The folders for Matlab and R each contain the CANYON-MED codes and training weights.
+The folders for Matlab, R and Python each contain the CANYON-MED codes and training weights.
 
 To use the CANYON-MED neural networks, download the corresponding folder ('CANYON-MED/v2/').
 In the "CANYON-MED codes" folder, change the **"basedir" in all 6 CANYON-MED functions** to the appropriate folder on your computer. This folder is the location of the CANYON-MED folder.
-It has to end in "R" or "MATLAB".
+It has to end in "R/", "MATLAB/" or "PYTHON/".
 
 For Matlab users, you will need to add the entire folder containing the code to your path in order for the custom functions to be recognised. One way to do this is to go to the folder containing the CANYON-MED codes and type **(addpath(genpath(pwd))** in your command window.
 
