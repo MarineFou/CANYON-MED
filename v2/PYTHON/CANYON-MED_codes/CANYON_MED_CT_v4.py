@@ -11,7 +11,7 @@ def CANYON_MED_CT_v4(date, lat, lon, pres, temp, psal, doxy):
     #
     #
     # input:
-    # date  - date (UTC) as string ("yyyy-mm-dd HH:MM")
+    # date  - date (UTC) as string ('yyyy-mm-dd')
     # lat   - latitude / °N  [-90 90]
     # lon   - longitude / °E [-180 180] or [0 360]
     # pres  - pressure / dbar
