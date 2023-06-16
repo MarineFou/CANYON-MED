@@ -30,7 +30,7 @@ function out=CANYON_MED_NO3_v4(gtime,lat,lon,pres,temp,psal,doxy)
 % No input checks! Assumes informed use, e.g., same dimensions for all
 % inputs, ...
 
-basedir='D:\Documents\Thèse\Docs\science\PAPIER_CANYON_MED\CODES\CANYON-MED\v2\MATLAB\'; % relative or absolute path to CANYON training files
+basedir=strcat(fileparts(fileparts(which('CANYON_MED_NO3_v4.m'))),'\'); % relative or absolute path to CANYON-MED training files
 
 % input preparation
 dec_year=decyear(gtime);
