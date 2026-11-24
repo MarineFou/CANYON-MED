@@ -36,6 +36,21 @@ The sigmoid transformation of the day of year is no longer used, thus removing a
 **For users who don't have the Aerospace Toolbox, the decimal year and leap year functions are not available. These have been replaced by a few lines of code that provide the same functionality. Simply comment line 35 and uncomment lines 39-51 in all 6 CANYON-MED functions.**
 ------
 
+## Available versions of CANYON-MED
+
+Three versions of CANYON-MED are available in this repository:
+
+- **Version 1 (`v1_paper`)**: Original version associated with Fourrier et al. (2020), retained for historical reference and reproducibility.
+- **Version 2 (`v2`)**: Corrected version associated with the corrigendum published by Fourrier et al. (2021).
+- **Version 3 (`v3_without_dec-year_nut`)**: Retrained version in which decimal year is removed from the input variables of the nutrient estimation neural networks to limit potential biases associated with temporal extrapolation beyond the original training period. The original hyperparameters and ensemble of 10 neural networks are retained, with updated weights obtained through retraining.
+
+Please refer to the documentation provided in each version-specific directory for further details.
+
+## How to cite
+
+Users should cite the specific version of CANYON-MED used in their study, together with the relevant scientific publications.
+
+Version-specific software DOIs will be provided following archival on Zenodo.
+
 The folder v1_paper contains the original version from the paper.
-**As some errors have been modified we recommend users do not use this version.**
 
