@@ -1,1 +1,50 @@
 
+{
+  "title": "CANYON-MED",
+  "version": "1.0.0",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "GPL-3.0",
+  "description": "Original version of CANYON-MED, a regional neural network-based method developed to estimate water-column nutrient concentrations and carbonate system variables in the Mediterranean Sea. This version corresponds to the original publication by Fourrier et al. (2020) and is preserved for historical reference and scientific reproducibility. A corrected version was subsequently released following the 2021 corrigendum and is recommended over this original version.",
+  "creators": [
+    {
+      "name": "Fourrier, Marine",
+      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France"
+    },
+    {
+      "name": "Coppola, Laurent",
+      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France; Sorbonne Université, CNRS, Observatoire des Sciences de l'Univers (OSU) Station Marines (STAMAR), France"
+    },
+    {
+      "name": "Claustre, Hervé",
+      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France"
+    },
+    {
+      "name": "D'Ortenzio, Fabrizio",
+      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France"
+    },
+    {
+      "name": "Sauzède, Raphaëlle",
+      "affiliation": "Sorbonne Université, CNRS, Institut de la Mer de Villefranche, France"
+    },
+    {
+      "name": "Gattuso, Jean-Pierre",
+      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France; Institute for Sustainable Development and International Relations, Sciences Po, Paris, France"
+    }
+  ],
+  "keywords": [
+    "CANYON",
+    "Mediterranean Sea",
+    "Neural networks",
+    "Nutrients",
+    "Carbonate system"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.3389/fmars.2020.00620",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
+  ]
+}
+
