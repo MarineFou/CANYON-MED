@@ -1,11 +1,11 @@
 
 {
   "title": "CANYON-MED",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "upload_type": "software",
   "access_right": "open",
   "license": "GPL-3.0",
-  "description": "Original version of CANYON-MED, a regional neural network-based method developed to estimate water-column nutrient concentrations and carbonate system variables in the Mediterranean Sea. This version corresponds to the original publication by Fourrier et al. (2020) and is preserved for historical reference and scientific reproducibility. A corrected version was subsequently released following the 2021 corrigendum and is recommended over this original version.",
+  "description": "Corrected version of CANYON-MED, a regional neural network-based method for estimating water-column nutrient concentrations and carbonate system variables in the Mediterranean Sea. This version incorporates the corrections described in the corrigendum by Fourrier et al. (2021), including the use of decimal year as a temporal input for all six estimated variables, retraining of the neural networks and removal of artificial seasonality in deep-water estimates.",
   "creators": [
     {
       "name": "Fourrier, Marine",
@@ -44,7 +44,11 @@
       "identifier": "10.3389/fmars.2020.00620",
       "relation": "isSupplementTo",
       "scheme": "doi"
+    },
+    {
+      "identifier": "10.3389/fmars.2021.650509",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
     }
   ]
 }
-
