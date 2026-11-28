@@ -1,53 +1,42 @@
 
 {
   "title": "CANYON-MED",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "upload_type": "software",
   "access_right": "open",
   "license": "GPL-3.0",
-  "description": "Corrected version of CANYON-MED, a regional neural network-based method for estimating water-column nutrient concentrations and carbonate system variables in the Mediterranean Sea. This version incorporates the corrections described in the corrigendum by Fourrier et al. (2021), including the use of decimal year as a temporal input for all six estimated variables, retraining of the neural networks and removal of artificial seasonality in deep-water estimates.",
+  "description": "Updated version of CANYON-MED in which the decimal year input has been removed from the neural networks used to estimate nutrient concentrations (nitrate, phosphate and silicate). This modification aims to limit potential biases associated with temporal extrapolation beyond 2018, the last year represented in the original training dataset. The original hyperparameters and ensemble of ten neural networks are retained, with new weights obtained through retraining. This version builds on the original CANYON-MED method described by Fourrier et al. (2020) and its corrigendum (2021). It was developed for applications to the BioSWOT-Med study.",
   "creators": [
     {
-      "name": "Fourrier, Marine",
-      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France"
-    },
-    {
-      "name": "Coppola, Laurent",
-      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France; Sorbonne Université, CNRS, Observatoire des Sciences de l'Univers (OSU) Station Marines (STAMAR), France"
-    },
-    {
-      "name": "Claustre, Hervé",
-      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France"
-    },
-    {
-      "name": "D'Ortenzio, Fabrizio",
+      "name": "Pollet, Romane",
       "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France"
     },
     {
       "name": "Sauzède, Raphaëlle",
-      "affiliation": "Sorbonne Université, CNRS, Institut de la Mer de Villefranche, France"
+      "affiliation": "Institut de la Mer de Villefranche-sur-Mer, CNRS, Laboratoire d'Océanographie de Villefranche, France"
     },
     {
-      "name": "Gattuso, Jean-Pierre",
-      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche, France; Institute for Sustainable Development and International Relations, Sciences Po, Paris, France"
+      "name": "Coppola, Laurent",
+      "affiliation": "Sorbonne Université, CNRS, Laboratoire d'Océanographie de Villefranche and Institut de la Mer de Villefranche, France; Sorbonne Université, CNRS, Observatoire des Sciences de l'Univers (OSU) Station Marines (STAMAR), France"
     }
+
   ],
   "keywords": [
-    "CANYON",
+    "CANYON-MED",
     "Mediterranean Sea",
     "Neural networks",
     "Nutrients",
-    "Carbonate system"
+    "Temporal extrapolation"
   ],
   "related_identifiers": [
     {
       "identifier": "10.3389/fmars.2020.00620",
-      "relation": "isSupplementTo",
+      "relation": "references",
       "scheme": "doi"
     },
     {
       "identifier": "10.3389/fmars.2021.650509",
-      "relation": "isSupplementTo",
+      "relation": "references",
       "scheme": "doi"
     }
   ]
