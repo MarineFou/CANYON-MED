@@ -5,6 +5,8 @@ Fourrier, M., Coppola, L., Claustre, H., D’Ortenzio, F., Sauzède, R., and Gat
 
 Fourrier, M., Coppola, L., Claustre, H., D’Ortenzio, F., Sauzède, R., and Gattuso, J.-P. (2021). Corrigendum: A Regional Neural Network Approach to Estimate Water-Column Nutrient Concentrations and Carbonate System Variables in the Mediterranean Sea: CANYON-MED. Frontiers in Marine Science 8. doi:10.3389/fmars.2021.650509.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24533956.svg)](https://doi.org/10.5281/zenodo.24533956)
+
 **Python** code has been developped after publication. Please refer to the papers mentionned above and the github repository if using the python code.
 When using the method, please **cite the papers**.
 For any questions, please contact me at : *marine.fourrier@protonmail.com*
